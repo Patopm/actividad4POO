@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant M as Main
+    participant S1 as Subject 1
+    participant S2 as Subject 2
+    participant S3 as Subject 3
+    participant C as Course
+    participant ST as Student
+
+    M->>S1: create(Math, 10 credits)
+    M->>S2: create(History, 5 credits)
+    M->>S3: create(Physics, 10 credits)
+    M->>C: create(Subjects List)
+    C->>C: calculateTotalCredits()
+    Note right of C: Sum: 10+5+10 = 25
+    M->>ST: create(Student info, Course)
+    M->>ST: getCourseDetails()
+    ST->>C: getName()
+    C-->>ST: "Science Track"
+    ST-->>M: Display Student & Course Data
