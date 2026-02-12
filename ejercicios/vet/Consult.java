@@ -22,8 +22,7 @@ public class Consult {
   }
 
   public Consult(Consult c) {
-    this.scheduledAt = c.scheduledAt;
-    this.totalCost = c.totalCost;
+    this(c.pet, c.vet, c.service, c.scheduledAt);
   }
 
   // Getters

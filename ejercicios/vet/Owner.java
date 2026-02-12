@@ -18,9 +18,7 @@ public class Owner {
   }
 
   public Owner(Owner o) {
-    this.name = o.name;
-    this.rfc = o.rfc;
-    this.phone = o.phone;
+    this(o.name, o.rfc, o.phone);
   }
 
   // Getters

@@ -16,9 +16,7 @@ public class Service {
   }
 
   public Service(Service s) {
-    this.name = s.name;
-    this.price = s.price;
-    this.duration = s.duration;
+    this(s.name, s.price, s.duration);
   }
 
   // Getters
