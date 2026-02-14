@@ -43,32 +43,34 @@ public class MenuGimnasio {
     System.out.println("\n=== CREAR MIEMBRO ===");
     System.out.print("Nombre: ");
     String nombre = sc.nextLine();
-    System.out.print("Edad: ");
-    int edad = sc.nextInt();
-    sc.nextLine(); // Limpiar buffer
+    int edad = readInt("Edad: ");
     System.out.print("Tipo de membresía (básica/premium): ");
     String membresia = sc.nextLine();
 
-    Miembro miembro = new Miembro(nombre, edad, membresia);
-    System.out.println("Miembro creado exitosamente:");
-    miembro.mostrarInfo();
+    try {
+      Miembro miembro = new Miembro(nombre, edad, membresia);
+      System.out.println("Miembro creado exitosamente:");
+      miembro.mostrarInfo();
+    } catch (IllegalArgumentException e) {
+      System.out.println("Error al crear miembro: " + e.getMessage());
+    }
   }
 
   private static void createExcercise() {
     System.out.println("\n=== CREAR EJERCICIO ===");
     System.out.print("Nombre del ejercicio: ");
     String nombre = sc.nextLine();
-    System.out.print("Número de series: ");
-    int series = sc.nextInt();
-    System.out.print("Número de repeticiones: ");
-    int reps = sc.nextInt();
-    System.out.print("Duración por serie (min): ");
-    int duracion = sc.nextInt();
-    sc.nextLine(); // Limpiar buffer
+    int series = readInt("Número de series: ");
+    int reps = readInt("Número de repeticiones: ");
+    int duracion = readInt("Duración por serie (min): ");
 
-    Ejercicio ejercicio = new Ejercicio(nombre, series, reps, duracion);
-    System.out.println("Ejercicio creado exitosamente.");
-    ejercicio.mostrarInfo();
+    try {
+      Ejercicio ejercicio = new Ejercicio(nombre, series, reps, duracion);
+      System.out.println("Ejercicio creado exitosamente.");
+      ejercicio.mostrarInfo();
+    } catch (IllegalArgumentException e) {
+      System.out.println("Error al crear ejercicio: " + e.getMessage());
+    }
   }
 
   private static void createPlan() {
@@ -90,16 +92,17 @@ public class MenuGimnasio {
       System.out.println("Ejercicio " + i + ":");
       System.out.print("Nombre: ");
       String nombreE = sc.nextLine();
-      System.out.print("Series: ");
-      int series = sc.nextInt();
-      System.out.print("Repeticiones: ");
-      int reps = sc.nextInt();
-      System.out.print("Duración: ");
-      int duracion = sc.nextInt();
-      sc.nextLine(); // Limpiar buffer
+      int series = readInt("Series: ");
+      int reps = readInt("Repeticiones: ");
+      int duracion = readInt("Duración: ");
 
-      Ejercicio e = new Ejercicio(nombreE, series, reps, duracion);
-      plan.agregarEjercicio(e);
+      try {
+        Ejercicio e = new Ejercicio(nombreE, series, reps, duracion);
+        plan.agregarEjercicio(e);
+      } catch (IllegalArgumentException e) {
+        System.out.println("Error al agregar ejercicio: " + e.getMessage());
+        i--;
+      }
     }
 
     System.out.println("\nPlan creado exitosamente:");
@@ -118,5 +121,16 @@ public class MenuGimnasio {
     Entrenador entrenador = new Entrenador(nombre, especialidad, certificacion);
     System.out.println("Entrenador creado exitosamente:");
     entrenador.mostrarInfo();
+  }
+
+  private static int readInt(String prompt) {
+    System.out.print(prompt);
+    while (!sc.hasNextInt()) {
+      System.out.print("Por favor, introduce un número válido: ");
+      sc.next();
+    }
+    int valor = sc.nextInt();
+    sc.nextLine();
+    return valor;
   }
 }

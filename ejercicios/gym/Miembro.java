@@ -17,9 +17,9 @@ public class Miembro {
   }
 
   public Miembro(String nombre, int edad, String tipoMembresia) {
-    this.nombre = nombre;
-    this.edad = edad;
-    this.tipoMembresia = tipoMembresia;
+    setNombre(nombre);
+    setEdad(edad);
+    setTipoMembresia(tipoMembresia);
   }
 
   public Miembro(Miembro otro) {
@@ -35,6 +35,9 @@ public class Miembro {
   }
 
   public void setNombre(String nombre) {
+    if (nombre == null || nombre.trim().isEmpty()) {
+      throw new IllegalArgumentException("El nombre no puede estar vacío");
+    }
     this.nombre = nombre;
   }
 
@@ -54,7 +57,7 @@ public class Miembro {
   }
 
   public void setTipoMembresia(String tipoMembresia) {
-    if (!tipoMembresia.equals("básica") && !tipoMembresia.equals("premium")) {
+    if (tipoMembresia == null || (!tipoMembresia.equals("básica") && !tipoMembresia.equals("premium"))) {
       throw new IllegalArgumentException("Tipo de membresía inválido");
     }
     this.tipoMembresia = tipoMembresia;

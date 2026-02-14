@@ -39,7 +39,9 @@ public class PlanEntrenamiento {
   public PlanEntrenamiento(PlanEntrenamiento p) {
     this(p.nombrePlan, p.objetivo, p.miembro);
     for (int i = 0; i < p.ejercicios.size(); i++) {
-      this.ejercicios.set(i, new Ejercicio(p.ejercicios.get(i)));
+      if (p.ejercicios.get(i) != null) {
+        this.ejercicios.set(i, new Ejercicio(p.ejercicios.get(i)));
+      }
     }
   }
 
@@ -48,10 +50,13 @@ public class PlanEntrenamiento {
   // Agrega un ejercicio a la lista (máximo 5)
   // =====================================================
   public void agregarEjercicio(Ejercicio e) {
-    if (ejercicios.size() >= 5) {
-      throw new Exception("Maxima cantidad de ejercicios alcanzada.");
+    for (int i = 0; i < ejercicios.size(); i++) {
+      if (ejercicios.get(i) == null) {
+        ejercicios.set(i, e);
+        return;
+      }
     }
-    ejercicios.add(e);
+    throw new IllegalArgumentException("Maxima cantidad de ejercicios alcanzada.");
   }
 
   // =====================================================
@@ -61,6 +66,7 @@ public class PlanEntrenamiento {
   public int getDuracionTotalPlan() {
     return ejercicios
         .stream()
+        .filter(e -> e != null)
         .map(Ejercicio::getDuracionTotal)
         .reduce(0, Integer::sum);
   }
@@ -101,10 +107,12 @@ public class PlanEntrenamiento {
     System.out.println("| - Nombre: " + getNombrePlan());
     System.out.println("| - Duracion total: " + getDuracionTotalPlan());
     System.out.println("| - Objetivo: " + getObjetivo());
-    System.out.println("| - Miembro: " + getMiembro());
+    System.out.println("| - Miembro: " + getMiembro().getNombre());
     System.out.println("| - Ejercicios: ");
     for (Ejercicio e : ejercicios) {
-      e.mostrarInfo();
+      if (e != null) {
+        e.mostrarInfo();
+      }
     }
     System.out.println("------------------");
   }

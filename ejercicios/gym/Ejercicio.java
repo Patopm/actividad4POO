@@ -1,4 +1,4 @@
-package ejercicio.gym;
+package ejercicios.gym;
 
 /**
  * Clase Ejercicio - Representa un ejercicio físico
@@ -30,10 +30,10 @@ public class Ejercicio {
       int series,
       int repeticiones,
       int duracionMinutos) {
-    this.nombre = nombre;
-    this.series = series;
-    this.repeticiones = repeticiones;
-    this.duracionMinutos = duracionMinutos;
+    setNombre(nombre);
+    setSeries(series);
+    setRepeticiones(repeticiones);
+    setDuracionMinutos(duracionMinutos);
   }
 
   // =====================================================
@@ -52,7 +52,7 @@ public class Ejercicio {
   }
 
   public void setNombre(String nombre) {
-    if (nombre == "")
+    if (nombre == null || nombre.trim().isEmpty())
       throw new IllegalArgumentException("El nombre no puede estar vacio");
     this.nombre = nombre;
   }
